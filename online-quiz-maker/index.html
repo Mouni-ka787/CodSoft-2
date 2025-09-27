@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuizMaster - Interactive Quiz Platform</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <header>
+      <div class="logo">
+        <h1>QuizMaster</h1>
+      </div>
+      <nav id="main-nav">
+        <ul>
+          <li><a href="#" class="nav-link" data-page="home">Home</a></li>
+          <li><a href="#" class="nav-link" data-page="explore">Explore Quizzes</a></li>
+          <li><a href="#" class="nav-link" data-page="leaderboard">Leaderboard</a></li>
+          <li id="dashboard-link" class="hidden"><a href="#" class="nav-link" data-page="dashboard">Dashboard</a></li>
+        </ul>
+      </nav>
+      <div class="auth-buttons">
+        <button id="login-btn" class="btn btn-outline">Login</button>
+        <button id="register-btn" class="btn btn-primary">Register</button>
+        <button id="logout-btn" class="btn btn-outline hidden">Logout</button>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <!-- Home Page -->
+      <section id="home" class="page active">
+        <div class="hero">
+          <h2>Welcome to QuizMaster</h2>
+          <p>Create, share, and take quizzes on any topic</p>
+          <div class="cta-buttons">
+            <button class="btn btn-primary btn-large" id="explore-btn">Explore Quizzes</button>
+            <button class="btn btn-outline btn-large" id="create-btn">Create Quiz</button>
+          </div>
+        </div>
+        <div class="features">
+          <div class="feature-card">
+            <div class="feature-icon">📝</div>
+            <h3>Create Quizzes</h3>
+            <p>Design custom quizzes with multiple-choice questions</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">✅</div>
+            <h3>Take Quizzes</h3>
+            <p>Test your knowledge on various topics</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🏆</div>
+            <h3>Compete</h3>
+            <p>See your name on the leaderboard</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>Analytics</h3>
+            <p>Track quiz performance and statistics</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Explore Quizzes Page -->
+      <section id="explore" class="page">
+        <h2>Explore Quizzes</h2>
+        <div class="search-container">
+          <input type="text" id="search-quiz" placeholder="Search quizzes...">
+        </div>
+        <div id="quizzes-container" class="quizzes-grid">
+          <!-- Quizzes will be loaded here -->
+        </div>
+      </section>
+
+      <!-- Leaderboard Page -->
+      <section id="leaderboard" class="page">
+        <h2>Leaderboard</h2>
+        <div class="leaderboard-filters">
+          <select id="leaderboard-quiz-select">
+            <option value="all">All Quizzes</option>
+            <!-- Quiz options will be added here -->
+          </select>
+        </div>
+        <div class="leaderboard-container">
+          <table id="leaderboard-table">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>User</th>
+                <th>Quiz</th>
+                <th>Score</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody id="leaderboard-body">
+              <!-- Leaderboard entries will be loaded here -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Dashboard Page -->
+      <section id="dashboard" class="page">
+        <h2>Dashboard</h2>
+        <div class="dashboard-stats">
+          <div class="stat-card">
+            <h3>Total Quizzes</h3>
+            <p id="total-quizzes">0</p>
+          </div>
+          <div class="stat-card">
+            <h3>Total Attempts</h3>
+            <p id="total-attempts">0</p>
+          </div>
+          <div class="stat-card">
+            <h3>Average Score</h3>
+            <p id="average-score">0%</p>
+          </div>
+        </div>
+        <div class="dashboard-actions">
+          <button id="create-quiz-btn" class="btn btn-primary">Create New Quiz</button>
+        </div>
+        <h3>My Quizzes</h3>
+        <div id="my-quizzes-container" class="quizzes-grid">
+          <!-- User's quizzes will be loaded here -->
+        </div>
+      </section>
+
+      <!-- Take Quiz Page -->
+      <section id="take-quiz" class="page">
+        <div id="quiz-header">
+          <h2 id="quiz-title">Quiz Title</h2>
+          <p id="quiz-description">Quiz description will appear here.</p>
+          <div id="quiz-meta">
+            <span id="quiz-question-count">10 questions</span>
+            <span id="quiz-author">by Author</span>
+          </div>
+        </div>
+        <div id="quiz-progress-container">
+          <div id="quiz-progress-bar">
+            <div id="quiz-progress"></div>
+          </div>
+          <div id="quiz-progress-text">Question 1 of 10</div>
+        </div>
+        <div id="quiz-content">
+          <div id="question-container">
+            <h3 id="question-text">Question text will appear here.</h3>
+            <div id="options-container">
+              <!-- Options will be loaded here -->
+            </div>
+          </div>
+        </div>
+        <div id="quiz-navigation">
+          <button id="prev-question" class="btn btn-outline">Previous</button>
+          <button id="next-question" class="btn btn-primary">Next</button>
+          <button id="submit-quiz" class="btn btn-primary hidden">Submit Quiz</button>
+        </div>
+      </section>
+
+      <!-- Quiz Results Page -->
+      <section id="quiz-results" class="page">
+        <h2>Quiz Results</h2>
+        <div class="results-summary">
+          <div class="result-card">
+            <h3>Score</h3>
+            <p id="result-score">0/10</p>
+          </div>
+          <div class="result-card">
+            <h3>Percentage</h3>
+            <p id="result-percentage">0%</p>
+          </div>
+          <div class="result-card">
+            <h3>Time Taken</h3>
+            <p id="result-time">0:00</p>
+          </div>
+        </div>
+        <div class="results-actions">
+          <button id="view-answers-btn" class="btn btn-outline">View Answers</button>
+          <button id="retake-quiz-btn" class="btn btn-primary">Retake Quiz</button>
+          <button id="back-to-explore-btn" class="btn btn-outline">Back to Explore</button>
+        </div>
+        <div id="results-details" class="hidden">
+          <h3>Question Review</h3>
+          <div id="questions-review-container">
+            <!-- Question review will be loaded here -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Create Quiz Page -->
+      <section id="create-quiz" class="page">
+        <h2>Create Quiz</h2>
+        <form id="create-quiz-form">
+          <div class="form-group">
+            <label for="quiz-title-input">Quiz Title</label>
+            <input type="text" id="quiz-title-input" required>
+          </div>
+          <div class="form-group">
+            <label for="quiz-description-input">Description</label>
+            <textarea id="quiz-description-input" rows="3" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="quiz-category-input">Category</label>
+            <select id="quiz-category-input" required>
+              <option value="">Select a category</option>
+              <option value="general">General Knowledge</option>
+              <option value="science">Science</option>
+              <option value="history">History</option>
+              <option value="geography">Geography</option>
+              <option value="entertainment">Entertainment</option>
+              <option value="sports">Sports</option>
+              <option value="technology">Technology</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          
+          <h3>Questions</h3>
+          <div id="questions-container">
+            <!-- Question form will be added here -->
+          </div>
+          
+          <button type="button" id="add-question-btn" class="btn btn-outline">Add Question</button>
+          
+          <div class="form-actions">
+            <button type="button" id="cancel-quiz-btn" class="btn btn-outline">Cancel</button>
+            <button type="submit" id="save-quiz-btn" class="btn btn-primary">Save Quiz</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Quiz Analytics Page -->
+      <section id="quiz-analytics" class="page">
+        <div id="analytics-header">
+          <h2 id="analytics-title">Quiz Analytics</h2>
+          <button id="back-to-dashboard-btn" class="btn btn-outline">Back to Dashboard</button>
+        </div>
+        <div class="analytics-summary">
+          <div class="analytics-card">
+            <h3>Total Attempts</h3>
+            <p id="analytics-attempts">0</p>
+          </div>
+          <div class="analytics-card">
+            <h3>Average Score</h3>
+            <p id="analytics-avg-score">0%</p>
+          </div>
+          <div class="analytics-card">
+            <h3>Completion Rate</h3>
+            <p id="analytics-completion">0%</p>
+          </div>
+        </div>
+        <div class="analytics-details">
+          <h3>Question Performance</h3>
+          <div id="question-performance-container">
+            <!-- Question performance will be loaded here -->
+          </div>
+        </div>
+        <div class="analytics-actions">
+          <button id="edit-quiz-btn" class="btn btn-primary">Edit Quiz</button>
+          <button id="delete-quiz-btn" class="btn btn-danger">Delete Quiz</button>
+        </div>
+      </section>
+    </main>
+
+    <!-- Auth Modal -->
+    <div id="auth-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <div class="auth-tabs">
+          <button class="auth-tab active" data-tab="login">Login</button>
+          <button class="auth-tab" data-tab="register">Register</button>
+        </div>
+        <div id="login-form" class="auth-form active">
+          <h2>Login</h2>
+          <form id="login-form-element">
+            <div class="form-group">
+              <label for="login-username">Username</label>
+              <input type="text" id="login-username" required>
+            </div>
+            <div class="form-group">
+              <label for="login-password">Password</label>
+              <input type="password" id="login-password" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Login</button>
+          </form>
+        </div>
+        <div id="register-form" class="auth-form">
+          <h2>Register</h2>
+          <form id="register-form-element">
+            <div class="form-group">
+              <label for="register-username">Username</label>
+              <input type="text" id="register-username" required>
+            </div>
+            <div class="form-group">
+              <label for="register-email">Email</label>
+              <input type="email" id="register-email" required>
+            </div>
+            <div class="form-group">
+              <label for="register-password">Password</label>
+              <input type="password" id="register-password" required>
+            </div>
+            <div class="form-group">
+              <label for="register-confirm-password">Confirm Password</label>
+              <input type="password" id="register-confirm-password" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Register</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Question Template (hidden) -->
+    <template id="question-template">
+      <div class="question-item">
+        <div class="question-header">
+          <h4>Question <span class="question-number"></span></h4>
+          <button type="button" class="remove-question-btn btn btn-icon">×</button>
+        </div>
+        <div class="form-group">
+          <label>Question Text</label>
+          <textarea class="question-text" required></textarea>
+        </div>
+        <div class="options-container">
+          <div class="option-item">
+            <input type="radio" name="correct-option-{qid}" class="correct-option" value="0" required>
+            <input type="text" class="option-text" placeholder="Option 1" required>
+          </div>
+          <div class="option-item">
+            <input type="radio" name="correct-option-{qid}" class="correct-option" value="1" required>
+            <input type="text" class="option-text" placeholder="Option 2" required>
+          </div>
+          <div class="option-item">
+            <input type="radio" name="correct-option-{qid}" class="correct-option" value="2" required>
+            <input type="text" class="option-text" placeholder="Option 3" required>
+          </div>
+          <div class="option-item">
+            <input type="radio" name="correct-option-{qid}" class="correct-option" value="3" required>
+            <input type="text" class="option-text" placeholder="Option 4" required>
+          </div>
+        </div>
+        <button type="button" class="add-option-btn btn btn-small btn-outline">Add Option</button>
+      </div>
+    </template>
+
+    <script src="app.js"></script>
+  </div>
+</body>
+</html>
+
